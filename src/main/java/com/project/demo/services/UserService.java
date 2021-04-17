@@ -68,6 +68,7 @@ public class UserService {
      * i converted user to userDTO and throw an exception if user not exist
      *
      * @return UserDTO
+     * @throws UserException
      */
     public UserDTO findById(String id) {
         log.debug("RESOURCE::REQUEST TO FIND USER BY ID");
@@ -83,6 +84,7 @@ public class UserService {
      *
      * @param user
      * @return User
+     * @throws EmailDuplicationException
      */
     private User checkEmailDuplication(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
@@ -97,6 +99,7 @@ public class UserService {
      *
      * @param user
      * @return User
+     * @throws IllegalAddressException
      */
     private User checkAddress(User user) {
         if (!user.getAddress().getCountry().equalsIgnoreCase("FRANCE")) {
@@ -111,6 +114,7 @@ public class UserService {
      *
      * @param user
      * @return User
+     * @throws illegalAgeException
      */
     private User checkAge(User user) {
         if (user.getAge() <= 18) {
