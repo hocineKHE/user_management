@@ -13,6 +13,10 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+    /**
+     * used lombok to generate constructor, getter, setter and builder
+     */
+
     private String id;
     private String firstName;
     private String lastName;

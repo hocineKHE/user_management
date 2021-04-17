@@ -25,6 +25,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    /**
+     * register service used to register a user and return that user,
+     * in this method, i call two methods to check the Age and the Country,
+     * convert userDTO to a user with userMapper and save it in the DB after that return userDTO
+     *
+     * @param userDTO
+     * @return UserDTO
+     */
     public UserDTO register(UserDTO userDTO) {
         log.debug("SERVICE::REQUEST TO REGISTER USER");
         return Optional.of(userDTO)
@@ -38,6 +46,13 @@ public class UserService {
 
     }
 
+    /**
+     * findAll service used to get all users stored in the DB
+     * in this method, i call userRepository method to get all users,
+     * i converted the result to Stream and every user to userDTO
+     *
+     * @return Set<UserDTO>
+     */
     public Set<UserDTO> findAll() {
         log.debug("RESOURCE::REQUEST TO FIN ALL USERS");
         return userRepository.findAll()
@@ -46,6 +61,14 @@ public class UserService {
                 .collect(Collectors.toSet());
     }
 
+
+    /**
+     * findById service used to get user by id stored in the DB
+     * in this method, i call userRepository method to get Optionnel(user),
+     * i converted user to userDTO and throw an exception if user not exist
+     *
+     * @return UserDTO
+     */
     public UserDTO findById(String id) {
         log.debug("RESOURCE::REQUEST TO FIND USER BY ID");
         return userRepository.findById(id)
@@ -54,6 +77,13 @@ public class UserService {
     }
 
 
+    /**
+     * checkEmailDuplication method to check email duplication in the db
+     * and throw an exception if the email exist
+     *
+     * @param user
+     * @return User
+     */
     private User checkEmailDuplication(User user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new EmailDuplicationException("error.email.duplication");
@@ -61,6 +91,13 @@ public class UserService {
         return user;
     }
 
+    /**
+     * checkAddress method to check address.country if is France or not
+     * and throw an exception if is not 'FRANCE'
+     *
+     * @param user
+     * @return User
+     */
     private User checkAddress(User user) {
         if (!user.getAddress().getCountry().equalsIgnoreCase("FRANCE")) {
             throw new IllegalAddressException("error.user.address.country.illegal");
@@ -68,6 +105,13 @@ public class UserService {
         return user;
     }
 
+    /**
+     * checkAge method to check Age if is more than 18
+     * and throw an exception if is not
+     *
+     * @param user
+     * @return User
+     */
     private User checkAge(User user) {
         if (user.getAge() <= 18) {
             throw new illegalAgeException("error.user.age.illegal");
