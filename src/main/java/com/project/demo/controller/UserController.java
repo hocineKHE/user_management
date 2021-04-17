@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Set;
 
+
+/**
+ * UserController class is the entry of the backend application
+ */
 @RestController
 @RequestMapping("/api/user")
 @AllArgsConstructor

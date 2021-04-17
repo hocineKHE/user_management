@@ -17,6 +17,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
+/**
+ * UserService class is a layer between a ressources and controllers
+ */
 @Service
 @AllArgsConstructor
 public class UserService {
